@@ -176,9 +176,9 @@ export default function LoginPage({
             Register
           </Link>
         </p>
-        <Link href="#" className="text-gray-600 hover:underline">
+        {/* <Link href="#" className="text-gray-600 hover:underline">
           Forgot password?
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
