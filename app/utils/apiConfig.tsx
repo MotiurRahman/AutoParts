@@ -1,4 +1,7 @@
 // utils/apiConfig.js
+import * as dotenv from "dotenv";
+dotenv.config();
+
 export const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 // GCC web API
