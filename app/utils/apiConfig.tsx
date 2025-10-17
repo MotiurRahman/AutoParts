@@ -1,16 +1,26 @@
 // utils/apiConfig.js
-import * as dotenv from "dotenv";
-dotenv.config();
 
-export const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+// Prefer NEXT_PUBLIC_API_BASE_URL if available,
+// otherwise fall back to a relative path (safe for Next.js build)
+const BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  process.env.API_BASE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
+  "";
 
-// GCC web API
+// Helper to safely join URLs (avoids double slashes)
+function joinUrl(base: any, path: any) {
+  if (!base) return path; // relative fallback
+  return `${base.replace(/\/+$/, "")}${path}`;
+}
+
 const API_URLS = {
-  //Login API
-  LoginAPI: `${API_URL}/auth/login`,
-  RegisterAPI: `${API_URL}/auth/register`,
+  // Auth APIs
+  LoginAPI: joinUrl(BASE, "/auth/login"),
+  RegisterAPI: joinUrl(BASE, "/auth/register"),
 
-  PartsAPI: `${API_URL}/parts`,
+  // Parts API
+  PartsAPI: joinUrl(BASE, "/parts"),
 };
 
 export default API_URLS;
